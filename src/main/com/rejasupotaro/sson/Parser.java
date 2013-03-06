@@ -1,7 +1,8 @@
-package com.rejasupotaro.sson;
+package main.com.rejasupotaro.sson;
 
 import java.io.File;
 import java.io.IOException;
+
 
 
 public class Parser {

@@ -1,4 +1,4 @@
-package com.rejasupotaro.sson;
+package main.com.rejasupotaro.sson;
 
 public class TokenType {    
     public final static int NIL = 0;

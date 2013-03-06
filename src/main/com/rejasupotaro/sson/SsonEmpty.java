@@ -1,4 +1,4 @@
-package com.rejasupotaro.sson;
+package main.com.rejasupotaro.sson;
 
 public final class SsonEmpty extends Sexpr {
 

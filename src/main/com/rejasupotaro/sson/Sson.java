@@ -1,6 +1,8 @@
-package com.rejasupotaro.sson;
+package main.com.rejasupotaro.sson;
 
 import java.lang.reflect.Type;
+
+import test.com.rejasupotaro.sson.Person;
 
 
 public class Sson {

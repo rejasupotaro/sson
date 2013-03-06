@@ -1,4 +1,4 @@
-package com.rejasupotaro.sson.internal;
+package main.com.rejasupotaro.sson.internal;
 
 import java.lang.reflect.Type;
 

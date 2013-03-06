@@ -1,4 +1,4 @@
-package com.rejasupotaro.sson;
+package main.com.rejasupotaro.sson;
 
 import java.io.BufferedReader;
 import java.io.File;

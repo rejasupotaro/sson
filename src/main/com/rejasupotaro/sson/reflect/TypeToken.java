@@ -1,8 +1,9 @@
-package com.rejasupotaro.sson.reflect;
+package main.com.rejasupotaro.sson.reflect;
 
 import java.lang.reflect.Type;
 
-import com.rejasupotaro.sson.internal.$Sson$Types;
+import main.com.rejasupotaro.sson.internal.$Sson$Types;
+
 
 public class TypeToken<T> {
     final Class<? super T> rawType;
