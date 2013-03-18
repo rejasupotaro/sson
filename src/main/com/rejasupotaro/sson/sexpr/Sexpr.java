@@ -1,15 +1,14 @@
-package main.com.rejasupotaro.sson;
+package main.com.rejasupotaro.sson.sexpr;
 
-import java.io.IOException;
 
 public class Sexpr {
-    boolean isAtom;
-    boolean isNIL;
-    boolean isNumber;
-    boolean isID;
-    Sexpr car;
-    Sexpr cdr;
-    String value;
+    public boolean isAtom;
+    public boolean isNIL;
+    public boolean isNumber;
+    public boolean isID;
+    public Sexpr car;
+    public Sexpr cdr;
+    public String value;
     //int pcounter = 0;
 
     public static Sexpr NIL = new Sexpr("NIL");

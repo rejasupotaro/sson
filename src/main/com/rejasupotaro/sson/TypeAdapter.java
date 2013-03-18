@@ -1,9 +1,12 @@
 package main.com.rejasupotaro.sson;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.com.rejasupotaro.sson.sexpr.Sexpr;
 
 
 public class TypeAdapter {
@@ -32,8 +35,13 @@ public class TypeAdapter {
             Sexpr lastSexpr = null;
             for (int i = 0; i < fields.length; i++) {
                 Field field = fields[i];
-                field.setAccessible(true);
-                Parser parser = new Parser(field.getName(), field.get(src).toString());
+
+                String label = field.getName();
+                Object value = field.get(src);
+                dumpvalue(value);
+
+                Parser parser = new Parser(label, value.toString());
+
                 Sexpr sexpr = parser.buildTree();
                 if (rootSexpr == null) {
                     rootSexpr = sexpr.cloneSexpr(sexpr);
@@ -58,5 +66,16 @@ public class TypeAdapter {
         }
 
         return rootSexpr == null ? null : rootSexpr.toString();
+    }
+
+    private void dumpvalue(Object value) {
+        if (value.getClass().isArray()) {
+            int length = Array.getLength(value);
+            for (int j = 0; j < length; j++) {
+                System.out.println(Array.get(value, j));
+            }
+        } else {
+            System.out.println(value.toString());
+        }
     }
 }
