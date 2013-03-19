@@ -1,12 +1,27 @@
 package main.com.rejasupotaro.sson;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import main.com.rejasupotaro.sson.sexpr.SexprElement;
 import main.com.rejasupotaro.sson.sexpr.SexprEmpty;
-import main.com.rejasupotaro.sson.sexpr.SexprObject;
-import test.com.rejasupotaro.sson.Person;
 
 public class Sson {
+
+    private final List<TypeAdapterFactory> factories;
+
+    public Sson() {
+        this(Collections.<TypeAdapterFactory>emptyList());
+    }
+
+    Sson(List<TypeAdapterFactory> typeAdapterFactories) {
+        List<TypeAdapterFactory> factories = new ArrayList<TypeAdapterFactory>();
+        factories.addAll(typeAdapterFactories);
+
+        this.factories = Collections.unmodifiableList(factories);
+    }
 
     public String toSexpr(Object src) {
         if (src == null) {
@@ -16,19 +31,12 @@ public class Sson {
         }
     }
 
-    private String toSexpr(SexprObject sexpr) {
-        return ""; // TODO
+    private String toSexpr(SexprElement sexpr) {
+        return sexpr.toString();
     }
 
     private String toSexpr(Object src, Type typeOfSrc) {
+        //TypeAdapter<?> adapter = getAdapter(TypeToken.get(typeOfSrc));
         return "";//new TypeAdapter().toSexpr(src);
-    }
-
-    public static void main(String[] args) {
-        Sson sson = new Sson();
-        Person person = new Person("rejasupotaro", 23);
-        System.out.println("person.toString() => " + person.toString());
-        String personSexpr = sson.toSexpr((person));
-        System.out.println("sson.toSson => " + personSexpr);
     }
 }
