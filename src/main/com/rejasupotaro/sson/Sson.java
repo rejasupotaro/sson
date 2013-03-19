@@ -61,6 +61,10 @@ public class Sson {
         }
     }
 
+    public <T> TypeAdapter<T> getAdapter(Class<T> type) {
+        return getAdapter(TypeToken.get(type));
+    }
+
     public <T> TypeAdapter<T> getAdapter(TypeToken<T> type) {
         try {
             for (TypeAdapterFactory factory : factories) {

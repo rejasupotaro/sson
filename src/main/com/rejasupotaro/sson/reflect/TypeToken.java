@@ -45,4 +45,8 @@ public class TypeToken<T> {
     public static TypeToken<?> get(Type type) {
         return new TypeToken<Object>(type);
     }
+
+    public static <T> TypeToken<T> get(Class<T> type) {
+        return new TypeToken<T>(type);
+    }
 }
