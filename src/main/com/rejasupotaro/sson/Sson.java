@@ -2,7 +2,7 @@ package main.com.rejasupotaro.sson;
 
 import java.lang.reflect.Type;
 
-import main.com.rejasupotaro.sson.sexpr.Sexpr;
+import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
 import test.com.rejasupotaro.sson.Person;
 
@@ -17,7 +17,7 @@ public class Sson {
         }
     }
 
-    private String toSson(Sexpr sexpr) {
+    private String toSson(SexprObject sexpr) {
         return ""; // TODO
     }
 

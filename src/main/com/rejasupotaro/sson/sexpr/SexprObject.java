@@ -1,24 +1,24 @@
 package main.com.rejasupotaro.sson.sexpr;
 
 
-public class Sexpr {
+public class SexprObject extends SexprElement {
     public boolean isAtom;
     public boolean isNIL;
     public boolean isNumber;
     public boolean isID;
-    public Sexpr car;
-    public Sexpr cdr;
+    public SexprObject car;
+    public SexprObject cdr;
     public String value;
     //int pcounter = 0;
 
-    public static Sexpr NIL = new Sexpr("NIL");
-    public static Sexpr T = new Sexpr("T");
+    public static SexprObject NIL = new SexprObject("NIL");
+    public static SexprObject T = new SexprObject("T");
 
-    public Sexpr() {
+    public SexprObject() {
         // TODO 空のS式にする
     }
     
-    public Sexpr(String value) {
+    public SexprObject(String value) {
         this.value = value.toUpperCase();
         isAtom =true;
         isNumber = false;
@@ -31,7 +31,7 @@ public class Sexpr {
         }
     }
 
-    public Sexpr(Sexpr car, Sexpr cdr) {
+    public SexprObject(SexprObject car, SexprObject cdr) {
         this.car = car;
         this.cdr = cdr;
         isAtom = false;
@@ -39,7 +39,7 @@ public class Sexpr {
         isNIL = false;
     }
 
-    public int sexprLength(Sexpr sexpr) {
+    public int sexprLength(SexprObject sexpr) {
         int n = 0;
         while(sexpr.isNIL != true) {
             if (sexpr.isAtom == true) {
@@ -55,8 +55,8 @@ public class Sexpr {
         return n;
     }
 
-    public Sexpr cloneSexpr(Sexpr sexpr) {
-        Sexpr ret = new Sexpr("NIL");
+    public SexprObject cloneSexpr(SexprObject sexpr) {
+        SexprObject ret = new SexprObject("NIL");
         ret.isAtom = false;
         ret.isID = false;
         ret.isNIL = false;
@@ -95,15 +95,15 @@ public class Sexpr {
         return "";
     }
     
-    private String toString(Sexpr sexpr) throws Exception {
+    private String toString(SexprObject sexpr) throws Exception {
         if (sexpr.cdr != null) {
-            return sexprPrinter(sexpr.car) + " " + toString(new Sexpr(sexpr.cdr, null));
+            return sexprPrinter(sexpr.car) + " " + toString(new SexprObject(sexpr.cdr, null));
         } else {
             return sexprPrinter(sexpr.car);
         }
     }
 
-    public String atomPrinter(Sexpr sexpr) throws Exception {
+    public String atomPrinter(SexprObject sexpr) throws Exception {
         if (sexpr.isAtom == true) {
             return sexpr.value;
         } else {
@@ -111,7 +111,7 @@ public class Sexpr {
         }
     }
 
-    public String sexprPrinter(Sexpr sexpr) throws Exception {
+    public String sexprPrinter(SexprObject sexpr) throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
 
         boolean needSpace = false;

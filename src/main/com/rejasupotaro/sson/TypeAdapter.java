@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.com.rejasupotaro.sson.sexpr.Sexpr;
+import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
 
 public class TypeAdapter {
@@ -30,9 +30,9 @@ public class TypeAdapter {
     }
 
     private String toSexpr(Object src, Field[] fields) {
-        Sexpr rootSexpr = null;
+        SexprObject rootSexpr = null;
         try {
-            Sexpr lastSexpr = null;
+            SexprObject lastSexpr = null;
             for (int i = 0; i < fields.length; i++) {
                 Field field = fields[i];
 
@@ -42,7 +42,7 @@ public class TypeAdapter {
 
                 Parser parser = new Parser(label, value.toString());
 
-                Sexpr sexpr = parser.buildTree();
+                SexprObject sexpr = parser.buildTree();
                 if (rootSexpr == null) {
                     rootSexpr = sexpr.cloneSexpr(sexpr);
                     rootSexpr.car = sexpr;

@@ -3,7 +3,7 @@ package main.com.rejasupotaro.sson;
 import java.io.File;
 import java.io.IOException;
 
-import main.com.rejasupotaro.sson.sexpr.Sexpr;
+import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
 
 
@@ -14,7 +14,7 @@ public class Parser {
     final static int NOTINLIST = 2;
     final static int TOKENAFTERDOT = 3;
     final static int DOTFINISHED = 4;
-    Sexpr NIL = new Sexpr("NIL");
+    SexprObject NIL = new SexprObject("NIL");
 
     public Parser(String label, String value) {
         this("(" + label + " " + value + ")");
@@ -28,14 +28,14 @@ public class Parser {
         this.scanner = scanner;
     }
 
-    public Sexpr buildTree() throws IOException {
+    public SexprObject buildTree() throws IOException {
         return buildTree(null);
     }
 
-    public Sexpr buildTree(Token lastToken) throws IOException {
+    public SexprObject buildTree(Token lastToken) throws IOException {
         Token token = new Token();
-        Sexpr sexpr = new Sexpr("NULL");
-        Sexpr head = sexpr;
+        SexprObject sexpr = new SexprObject("NULL");
+        SexprObject head = sexpr;
         int state = NOTINLIST;
         int isNilList = 1;
         token = lastToken;
@@ -57,7 +57,7 @@ public class Parser {
                 case INLIST:
                 {
                     sexpr.car = buildTree(token);
-                    Sexpr sexprNew = new Sexpr("NIL"); 
+                    SexprObject sexprNew = new SexprObject("NIL"); 
                     sexpr.cdr = sexprNew;
                     sexpr.isAtom = false;//Make the cell non-atom?
                     sexpr.isNIL = false;//...
@@ -81,7 +81,7 @@ public class Parser {
                 }
                 case TOKENAFTERDOT:
                 {
-                    Sexpr tmp = new Sexpr("NIL");
+                    SexprObject tmp = new SexprObject("NIL");
                     tmp = buildTree(token);
                     sexpr.car = tmp.car;
                     sexpr.cdr = tmp.cdr;
@@ -157,7 +157,7 @@ public class Parser {
                 {
 
                     //isNilList = 0;
-                    Sexpr sexprNew =new Sexpr(token.value);
+                    SexprObject sexprNew =new SexprObject(token.value);
                     sexprNew.isNumber = true;
                     sexpr.car = sexprNew;
                     sexpr.car.isNumber = true;
@@ -177,7 +177,7 @@ public class Parser {
                     sexprNew.isNumber = true;
                     sexprNew.isID = false;
 
-                    sexprNew = new Sexpr("NIL");
+                    sexprNew = new SexprObject("NIL");
                     sexpr.cdr = sexprNew;
                     sexpr = sexprNew;
                     sexpr.car = null;
@@ -201,7 +201,7 @@ public class Parser {
                     sexpr.isAtom = true;
                     if(token.type == TokenType.INT)
                     {
-                        Sexpr sexprNew =new Sexpr(token.value);
+                        SexprObject sexprNew =new SexprObject(token.value);
                         sexpr.value = sexprNew.value;
                         sexpr = sexprNew;
                         sexpr.isAtom = true;
@@ -210,7 +210,7 @@ public class Parser {
                     }
                     else if(token.type == TokenType.ID)
                     {
-                        Sexpr sexprNew =new Sexpr(token.value);
+                        SexprObject sexprNew =new SexprObject(token.value);
                         sexpr.value = sexprNew.value;
                         sexpr = sexprNew;
                         sexpr.isAtom = true;
@@ -238,7 +238,7 @@ public class Parser {
                 {                                   
 
                     //isNilList = 0;
-                    Sexpr sexprNew =new Sexpr(token.value);
+                    SexprObject sexprNew =new SexprObject(token.value);
                     sexpr.car = sexprNew;
 
                     sexpr.isAtom = false;//Make the cell become nonatom?
@@ -255,7 +255,7 @@ public class Parser {
                         sexprNew.isNIL = true;
                     sexprNew.isNumber = false;
                     sexprNew.isID = true;
-                    sexprNew = new Sexpr("NIL");
+                    sexprNew = new SexprObject("NIL");
                     sexpr.cdr = sexprNew;
                     sexpr = sexprNew;
                     sexpr.car = null;
@@ -291,7 +291,7 @@ public class Parser {
                     sexpr.isAtom = true;
                     if(token.type == TokenType.INT)
                     {
-                        Sexpr sexprNew =new Sexpr(token.value);
+                        SexprObject sexprNew =new SexprObject(token.value);
                         sexpr.value = sexprNew.value;
                         sexpr = sexprNew;
                         sexpr.isAtom = true;
@@ -300,7 +300,7 @@ public class Parser {
                     }
                     else if(token.type == TokenType.ID)
                     {
-                        Sexpr sexprNew =new Sexpr(token.value);
+                        SexprObject sexprNew =new SexprObject(token.value);
                         sexpr.value = sexprNew.value;
                         sexpr = sexprNew;
                         sexpr.isAtom = true;

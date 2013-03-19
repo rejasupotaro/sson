@@ -1,5 +1,5 @@
 package main.com.rejasupotaro.sson.sexpr;
 
-public class SexprPrimitive {
+public class SexprPrimitive extends SexprElement {
 
 }

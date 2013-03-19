@@ -1,8 +1,8 @@
 package main.com.rejasupotaro.sson;
 
-import main.com.rejasupotaro.sson.sexpr.Sexpr;
+import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
-public final class SsonEmpty extends Sexpr {
+public final class SsonEmpty extends SexprObject {
 
     public static final SsonEmpty INSTANCE = new SsonEmpty();
 
