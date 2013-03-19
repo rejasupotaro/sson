@@ -1,5 +1,6 @@
 package main.com.rejasupotaro.sson.reflect;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import main.com.rejasupotaro.sson.internal.$Sson$Types;
@@ -11,13 +12,32 @@ public class TypeToken<T> {
     final int hashCode;
 
     @SuppressWarnings("unchecked")
-    public TypeToken(Type type) {
-        if (type == null) throw new NullPointerException();
+    protected TypeToken() {
+        this.type = getSuperclassTypeParameter(getClass());
+        this.rawType = (Class<? super T>) $Sson$Types.getRawType(type);
+        this.hashCode = type.hashCode();
+    }
+
+    @SuppressWarnings("unchecked")
+    TypeToken(Type type) {
         this.type = type;
         this.rawType = (Class<? super T>) $Sson$Types.getRawType(type);
         this.hashCode = type.hashCode();
     }
-    
+
+    static Type getSuperclassTypeParameter(Class<?> subclass) {
+        Type superclass = subclass.getGenericSuperclass();
+        if (superclass instanceof Class) {
+            throw new RuntimeException("Missing type parameter.");
+        }
+        ParameterizedType parameterized = (ParameterizedType) superclass;
+        return $Sson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
+    }
+
+    public final Class<? super T> getRawType() {
+        return rawType;
+    }
+
     public final Type getType() {
         return this.type;
     }
