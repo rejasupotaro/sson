@@ -8,19 +8,19 @@ import test.com.rejasupotaro.sson.Person;
 
 public class Sson {
 
-    public String toSson(Object src) {
+    public String toSexpr(Object src) {
         if (src == null) {
-            return toSson(SexprEmpty.INSTANCE);
+            return toSexpr(SexprEmpty.INSTANCE);
         } else {
-            return toSson(src, src.getClass());
+            return toSexpr(src, src.getClass());
         }
     }
 
-    private String toSson(SexprObject sexpr) {
+    private String toSexpr(SexprObject sexpr) {
         return ""; // TODO
     }
 
-    private String toSson(Object src, Type typeOfSrc) {
+    private String toSexpr(Object src, Type typeOfSrc) {
         return "";//new TypeAdapter().toSexpr(src);
     }
 
@@ -28,7 +28,7 @@ public class Sson {
         Sson sson = new Sson();
         Person person = new Person("rejasupotaro", 23);
         System.out.println("person.toString() => " + person.toString());
-        String personSexpr = sson.toSson((person));
+        String personSexpr = sson.toSexpr((person));
         System.out.println("sson.toSson => " + personSexpr);
     }
 }
