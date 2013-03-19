@@ -35,8 +35,6 @@ public abstract class SexprElement {
         throw new IllegalStateException("This is not a Sexpr Empty.");
     }
 
-    @Override 
-    public String toString() {
-        return ""; // TODO impl me!
-    }
+    abstract public SexprElement getCar();
+    abstract public SexprElement getCdr();
 }

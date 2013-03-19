@@ -22,7 +22,7 @@ public class Sson {
     }
 
     private String toSson(Object src, Type typeOfSrc) {
-        return new TypeAdapter().toSexpr(src);
+        return "";//new TypeAdapter().toSexpr(src);
     }
 
     public static void main(String[] args) {

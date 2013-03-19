@@ -11,6 +11,7 @@ import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
 public class TypeAdapter {
 
+    /*
     public String toSexpr(Object src) {
         Field[] fields;
         Class<?> clazz = src.getClass();
@@ -78,4 +79,5 @@ public class TypeAdapter {
             System.out.println(value.toString());
         }
     }
+    */
 }

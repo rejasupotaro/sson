@@ -1,160 +1,53 @@
 package main.com.rejasupotaro.sson.sexpr;
 
-
 public class SexprObject extends SexprElement {
-    public boolean isAtom;
-    public boolean isNIL;
-    public boolean isNumber;
-    public boolean isID;
-    public SexprObject car;
-    public SexprObject cdr;
-    public String value;
-    //int pcounter = 0;
 
-    public static SexprObject NIL = new SexprObject("NIL");
-    public static SexprObject T = new SexprObject("T");
+    private SexprElement car;
+    private SexprElement cdr;
 
     public SexprObject() {
-        // TODO 空のS式にする
-    }
-    
-    public SexprObject(String value) {
-        this.value = value.toUpperCase();
-        isAtom =true;
-        isNumber = false;
-        isID =false;
-        //isNIL = this.Value.equals("NIL");
-        if (this.value.equals("NIL")) {
-            isNIL = true;
-        } else if (this.value.equals("NULL")) {
-            isNIL = true;
-        }
     }
 
-    public SexprObject(SexprObject car, SexprObject cdr) {
-        this.car = car;
-        this.cdr = cdr;
-        isAtom = false;
-        isNumber = false;
-        isNIL = false;
-    }
-
-    public int sexprLength(SexprObject sexpr) {
-        int n = 0;
-        while(sexpr.isNIL != true) {
-            if (sexpr.isAtom == true) {
-                return -1;
-            } else {
-                sexpr = sexpr.cdr;
-                n = n + 1;
-                if (sexpr.car == null) {
-                    break;
-                }
-            }
-        }
-        return n;
-    }
-
-    public SexprObject cloneSexpr(SexprObject sexpr) {
-        SexprObject ret = new SexprObject("NIL");
-        ret.isAtom = false;
-        ret.isID = false;
-        ret.isNIL = false;
-        ret.isNumber = false;
-        if (sexpr.isAtom == false) {
-            ret.car = cloneSexpr(sexpr.car);
-            ret.cdr = cloneSexpr(sexpr.cdr);
-            return ret;
+    public SexprObject setCar(SexprElement car) {
+        if (car == null) {
+            this.car = SexprEmpty.INSTACE;
         } else {
-            if (sexpr.isID == true) {
-                ret.value = sexpr.value;
-                ret.isAtom = true;
-                ret.isID = true;
-                ret.isNumber = false;
-                ret.isNIL = false;
-                return ret;
-            } else if(sexpr.isNumber == true) {
-                ret.value = sexpr.value;
-                ret.isAtom = true;
-                ret.isID = false;
-                ret.isNIL = false;
-                ret.isNumber = true;
-                return ret;
-            }
+            this.car = car;
         }
-        return ret;
+        return this;
     }
 
-    @Override
-    public String toString() {
-        try {
-            return "(" + toString(this) + ")";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
+    public SexprElement getCar() {
+        return this.car;
     }
-    
-    private String toString(SexprObject sexpr) throws Exception {
-        if (sexpr.cdr != null) {
-            return sexprPrinter(sexpr.car) + " " + toString(new SexprObject(sexpr.cdr, null));
+
+    public SexprObject setCdr(SexprElement cdr) {
+        if (cdr == null) {
+            this.cdr = SexprEmpty.INSTACE;
         } else {
-            return sexprPrinter(sexpr.car);
+            this.cdr = cdr;
         }
+        return this;
     }
 
-    public String atomPrinter(SexprObject sexpr) throws Exception {
-        if (sexpr.isAtom == true) {
-            return sexpr.value;
-        } else {
-            throw new Exception("The S-expr is not an atom "+ sexpr.value);
-        }
+    public SexprElement getCdr() {
+        return this.cdr;
     }
 
-    public String sexprPrinter(SexprObject sexpr) throws Exception {
-        StringBuilder stringBuilder = new StringBuilder();
+    public static SexprObject cons(Object car, Object cdr) {
+        SexprObject sexpr = new SexprObject();
+        sexpr.setCar(car instanceof SexprElement ?
+                (SexprElement) car : SexprPrimitive.newInstace(car));
+        sexpr.setCdr(cdr instanceof SexprElement ?
+                (SexprElement) cdr : SexprPrimitive.newInstace(cdr));
+        return sexpr;
+    }
 
-        boolean needSpace = false;
-        if (sexpr.isAtom == true) {
-            stringBuilder.append(this.atomPrinter(sexpr));
-        } else {
-            stringBuilder.append("(");
-            do {
-                if (needSpace == true) {
-                    stringBuilder.append(" ");
-                } else {
-                    needSpace = true;
-                }
+    public static SexprElement car(SexprElement sexpr) {
+        return sexpr.getCar();
+    }
 
-                if (sexpr.car != null) {
-                    if (sexpr.car.isAtom == true) {
-                        stringBuilder.append(this.atomPrinter(sexpr.car));
-                    } else {
-                        stringBuilder.append(this.sexprPrinter(sexpr.car));
-                    }
-
-                }
-
-                if (sexpr.cdr != null) {
-                    if (sexpr.cdr.isAtom == true) {
-                        if (sexpr.cdr.value.equals("NIL") == true) {
-                            stringBuilder.append((")"));
-                            return stringBuilder.toString();
-                        }
-                    }
-
-                    if (sexpr.cdr.isAtom == true) {
-                        stringBuilder.append(".");
-                        stringBuilder.append(this.atomPrinter(sexpr.cdr));
-                        stringBuilder.append(")");
-                        return stringBuilder.toString();
-                    }
-                }
-
-                sexpr = sexpr.cdr;
-            } while (true);
-        }
-
-        return stringBuilder.toString();
+    public static SexprElement cdr(SexprElement sexpr) {
+        return sexpr.getCdr();
     }
 }

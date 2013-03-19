@@ -9,6 +9,7 @@ import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
 public class Parser {
 
+    /*
     Scanner scanner;
     final static int INLIST = 1;
     final static int NOTINLIST = 2;
@@ -279,14 +280,6 @@ public class Parser {
                 }
                 case TOKENAFTERDOT:
                 {                               
-                    /*                              sexpr.Value = token.Value;
-                                sexpr.isID = true;
-                                sexpr.isAtom = true;
-                                sexpr.isNIL = false;
-                                if(sexpr.Value.equals(sexpr));
-                                    sexpr.isNIL = true;
-                                sexpr.isNumber = false;
-                                state = DOTFINISHED;*/
                     //return head;
                     sexpr.isAtom = true;
                     if(token.type == TokenType.INT)
@@ -324,19 +317,8 @@ public class Parser {
             case TokenType.FILEEOF:
                 return head;                                                        
             }                                       
-            /*catch(Exception e)
-            {
-                token = null;
-                break;
-            }   */
-            /*try {
-                token = this.scanner.getNextToken();
-            } catch(Exception e)
-            {
-                token = null;
-                break;//TODO
-            }*/
         }while((token = this.scanner.getNextToken()) != null );//TODO
         return head;
     }
+    */
 }

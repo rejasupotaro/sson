@@ -18,4 +18,7 @@ public final class SexprEmpty extends SexprElement {
     public boolean equals(Object other) {
         return this == other || other instanceof SexprEmpty;
     }
+
+    @Override public SexprElement getCar() { return null; }
+    @Override public SexprElement getCdr() { return null; }
 }

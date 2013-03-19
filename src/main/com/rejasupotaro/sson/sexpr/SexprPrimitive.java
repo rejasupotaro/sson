@@ -30,6 +30,14 @@ public final class SexprPrimitive extends SexprElement {
 
     private Object value;
 
+    public SexprPrimitive(Object primitive) {
+        setValue(primitive);
+    }
+
+    public static SexprPrimitive newInstace(Object primitive) {
+        return new SexprPrimitive(primitive);
+    }
+
     public SexprPrimitive(Boolean bool) {
         setValue(bool);
     }
@@ -44,10 +52,6 @@ public final class SexprPrimitive extends SexprElement {
 
     public SexprPrimitive(Character c) {
         setValue(c);
-    }
-
-    public SexprPrimitive(Object primitive) {
-        setValue(primitive);
     }
 
     void setValue(Object primitive) {
@@ -120,4 +124,12 @@ public final class SexprPrimitive extends SexprElement {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return getAsString();
+    }
+
+    @Override public SexprElement getCar() { return null; }
+    @Override public SexprElement getCdr() { return null; }
 }
