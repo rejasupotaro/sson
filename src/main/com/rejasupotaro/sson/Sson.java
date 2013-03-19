@@ -1,12 +1,17 @@
 package main.com.rejasupotaro.sson;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import main.com.rejasupotaro.sson.reflect.TypeToken;
 import main.com.rejasupotaro.sson.sexpr.SexprElement;
 import main.com.rejasupotaro.sson.sexpr.SexprEmpty;
+import main.com.rejasupotaro.sson.stream.SexprWriter;
 
 public class Sson {
 
@@ -36,7 +41,36 @@ public class Sson {
     }
 
     private String toSexpr(Object src, Type typeOfSrc) {
-        //TypeAdapter<?> adapter = getAdapter(TypeToken.get(typeOfSrc));
-        return "";//new TypeAdapter().toSexpr(src);
+        StringWriter writer = new StringWriter();
+        toSexpr(src, typeOfSrc, writer);
+        return writer.toString();
+    }
+
+    private void toSexpr(Object src, Type typeOfSrc, Appendable writer) {
+        SexprWriter sexprWriter = new SexprWriter((Writer) writer);
+        toSexpr(src, typeOfSrc, sexprWriter);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void toSexpr(Object src, Type typeOfSrc, SexprWriter writer) {
+        TypeAdapter<?> adapter = getAdapter(TypeToken.get(typeOfSrc));
+        try {
+            ((TypeAdapter<Object>) adapter).write(writer, src);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public <T> TypeAdapter<T> getAdapter(TypeToken<T> type) {
+        try {
+            for (TypeAdapterFactory factory : factories) {
+                TypeAdapter<T> candidate = factory.create(this, type);
+                if (candidate != null) {
+                    return candidate;
+                }
+            }
+            throw new IllegalArgumentException("SSON cannot handle " + type);
+        } finally {
+        }
     }
 }
