@@ -13,4 +13,30 @@ public abstract class SexprElement {
     public boolean isSexprEmpty() {
         return this instanceof SexprEmpty;
     }
+
+    public SexprObject getAsSexprObject() {
+        if (isSexprObject()) {
+            return (SexprObject) this;
+        }
+        throw new IllegalStateException("Not a Sexpr Object: " + this);
+    }
+
+    public SexprPrimitive getAsSexprPrimitive() {
+        if (isSexprPrimitive()) {
+            return (SexprPrimitive) this;
+        }
+        throw new IllegalStateException("This is not a Sexpr Primitive.");
+    }
+
+    public SexprEmpty getAsSexprEmpty() {
+        if (isSexprEmpty()) {
+            return (SexprEmpty) this;
+        }
+        throw new IllegalStateException("This is not a Sexpr Empty.");
+    }
+
+    @Override 
+    public String toString() {
+        return ""; // TODO impl me!
+    }
 }
