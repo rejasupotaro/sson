@@ -2,7 +2,7 @@ package main.com.rejasupotaro.sson.sexpr;
 
 public final class SexprEmpty extends SexprElement {
 
-    public static final SexprEmpty INSTACE = new SexprEmpty();
+    public static final SexprEmpty INSTANCE = new SexprEmpty();
 
     @Deprecated
     public SexprEmpty() {

@@ -10,7 +10,7 @@ public class SexprObject extends SexprElement {
 
     public SexprObject setCar(SexprElement car) {
         if (car == null) {
-            this.car = SexprEmpty.INSTACE;
+            this.car = SexprEmpty.INSTANCE;
         } else {
             this.car = car;
         }
@@ -23,7 +23,7 @@ public class SexprObject extends SexprElement {
 
     public SexprObject setCdr(SexprElement cdr) {
         if (cdr == null) {
-            this.cdr = SexprEmpty.INSTACE;
+            this.cdr = SexprEmpty.INSTANCE;
         } else {
             this.cdr = cdr;
         }

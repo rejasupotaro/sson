@@ -2,16 +2,15 @@ package main.com.rejasupotaro.sson;
 
 import java.lang.reflect.Type;
 
+import main.com.rejasupotaro.sson.sexpr.SexprEmpty;
 import main.com.rejasupotaro.sson.sexpr.SexprObject;
-
 import test.com.rejasupotaro.sson.Person;
-
 
 public class Sson {
 
     public String toSson(Object src) {
         if (src == null) {
-            return toSson(SsonEmpty.INSTANCE);
+            return toSson(SexprEmpty.INSTANCE);
         } else {
             return toSson(src, src.getClass());
         }
