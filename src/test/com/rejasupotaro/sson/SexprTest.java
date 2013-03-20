@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import main.com.rejasupotaro.sson.sexpr.SexprObject;
 
 public class SexprTest extends TestCase {
+
     public void testSexpr() {
         SexprObject sexpr1 = cons("car1", "cdr1");
         assertEquals("car1", SexprObject.car(sexpr1).toString());
