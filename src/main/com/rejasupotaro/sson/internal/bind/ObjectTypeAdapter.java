@@ -13,7 +13,10 @@ public class ObjectTypeAdapter extends TypeAdapter<Object> {
     public static final TypeAdapterFactory FACTORY = new TypeAdapterFactory() {
         @SuppressWarnings("unchecked")
         public <T> TypeAdapter<T> create(Sson sson, TypeToken<T> type) {
-            return (TypeAdapter<T>) new ObjectTypeAdapter(sson);
+            if (type.getRawType() == Object.class) {
+                return (TypeAdapter<T>) new ObjectTypeAdapter(sson);
+            }
+            return null;
         }
     };
 
@@ -23,8 +26,8 @@ public class ObjectTypeAdapter extends TypeAdapter<Object> {
         this.sson = sson;
     }
 
-    @Override
-    public void write(SexprWriter out, Object value) throws IOException {
+    @SuppressWarnings("unchecked")
+    @Override public void write(SexprWriter out, Object value) throws IOException {
         if (value == null) {
             out.emptyValue();
             return;

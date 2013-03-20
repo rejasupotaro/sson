@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import main.com.rejasupotaro.sson.internal.bind.ObjectTypeAdapter;
 import main.com.rejasupotaro.sson.reflect.TypeToken;
 import main.com.rejasupotaro.sson.sexpr.SexprElement;
 import main.com.rejasupotaro.sson.sexpr.SexprEmpty;
@@ -23,8 +24,8 @@ public class Sson {
 
     Sson(List<TypeAdapterFactory> typeAdapterFactories) {
         List<TypeAdapterFactory> factories = new ArrayList<TypeAdapterFactory>();
+        factories.add(ObjectTypeAdapter.FACTORY);
         factories.addAll(typeAdapterFactories);
-
         this.factories = Collections.unmodifiableList(factories);
     }
 
