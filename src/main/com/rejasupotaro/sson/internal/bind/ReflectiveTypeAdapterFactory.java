@@ -54,7 +54,6 @@ public class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
 
     private ReflectiveTypeAdapterFactory.BoundField createBoundField(
             final Sson context, final Field field, final String name, final TypeToken<?> fieldType) {
-        final boolean isPrimitive = Primitives.isPrimitive(fieldType.getRawType());
 
         return new ReflectiveTypeAdapterFactory.BoundField(name) {
             final TypeAdapter<?> typeAdapter = context.getAdapter(fieldType);
