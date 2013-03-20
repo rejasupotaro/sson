@@ -132,6 +132,17 @@ public class SexprWriter implements Closeable, Flushable {
         return this;
     }
 
+    public SexprWriter value(Number value) throws IOException {
+        if (value == null) {
+            return emptyValue();
+        }
+        writeDeferredLabel();
+        String string = value.toString();
+        beforeValue(false);
+        out.append(string);
+        return this;
+    }
+
     private SexprScope peek() {
         int size = stack.size();
         if (size == 0) {
