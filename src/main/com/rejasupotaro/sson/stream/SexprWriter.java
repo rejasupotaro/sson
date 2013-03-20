@@ -108,6 +108,20 @@ public class SexprWriter implements Closeable, Flushable {
         }
     }
 
+    public SexprWriter label(String label) throws IOException {
+        if (label == null) {
+            throw new NullPointerException("name == null");
+        }
+        if (deferredLabel != null) {
+            throw new IllegalStateException();
+        }
+        if (stack.isEmpty()) {
+            throw new IllegalStateException("SexprWriter is closed");
+        }
+        deferredLabel = label;
+        return this;
+    }
+
     private SexprScope peek() {
         int size = stack.size();
         if (size == 0) {
